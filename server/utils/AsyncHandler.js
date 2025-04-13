@@ -4,7 +4,7 @@ const AsyncHandler = (requestHandler) => async (req, res, next) => {
     try {
         await requestHandler(req, res, next);
     } catch (err) {
-        // console.log(err);
+        console.log(err);
         logger.error(
             `[${err.statusCode || 500}] \n` +
                 (err.errors?.length

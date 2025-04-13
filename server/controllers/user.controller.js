@@ -118,11 +118,27 @@ const loginUser = AsyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 200,
-                { user: loggedInUser, accessToken: accessToken }, // @todo: remove accessToken from data after testing
+                { user: loggedInUser},
                 "User logged in successfully"
             )
         );
 });
+
+const getLoggedUser = AsyncHandler(async (req, res) => {
+
+    const loggedInUser = await User.findById(req.user._id).select(
+        "-password -refreshToken -googleId"
+    );
+    
+    if (!loggedInUser) {
+        throw new ApiError(404, "User not found");
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, {user: loggedInUser}, "User info fetched"));
+
+})
 
 const logoutUser = AsyncHandler(async (req, res) => {
     await User.findByIdAndUpdate(
@@ -194,4 +210,4 @@ const logoutUser = AsyncHandler(async (req, res) => {
 //     }
 //   });
 
-export { registerUser, loginUser, logoutUser };
+export { registerUser, loginUser, logoutUser, getLoggedUser };

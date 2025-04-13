@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { check } from "express-validator";
 
-import { loginUser, logoutUser, registerUser } from "../controllers/user.controller.js";
+import { getLoggedUser, loginUser, logoutUser, registerUser } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middleware/auth.middleware.js";
 
 const router = Router();
@@ -27,6 +27,7 @@ router.route("/login").post(
 
 
 //Secured Routes:
+router.route("/currentUser").get(verifyJWT, getLoggedUser);
 
 router.route("/logout").post(verifyJWT, logoutUser);
 
