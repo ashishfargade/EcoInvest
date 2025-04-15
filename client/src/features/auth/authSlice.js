@@ -18,7 +18,7 @@ export const signup = createAsyncThunk(
       console.log("Signup asyncThunk success"); // @todo - remove
     } catch (err) {
       // err is already { status, message } from axios interceptor
-      console.log("Error in signup async thunk: ", err.message);
+      console.log("Error in signup async thunk: ", err.message); // @todo modify this
       return rejectWithValue(err);
     }
   }
@@ -44,6 +44,19 @@ export const login = createAsyncThunk(
   }
 );
 
+export const logout = createAsyncThunk(
+  "user/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post("/user/logout");
+      console.log(response); // @todo remove
+    } catch (err) {
+      console.log("Error in logout async thunk:", err.message); // @todo modify this
+      return rejectWithValue(err);
+    }
+  }
+);
+
 export const getLoggedUser = createAsyncThunk(
   "user/getLoggedUser",
   async (_, { rejectWithValue }) => {
@@ -61,7 +74,11 @@ export const getLoggedUser = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    clearError: (state) => {
+      state.error = null;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(signup.pending, (state) => {
@@ -74,7 +91,7 @@ const authSlice = createSlice({
       })
       .addCase(signup.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || "Unknown error";
+        state.error = action.payload?.message || "Signup failed";
         console.log(state); // @todo remove
       })
       .addCase(login.pending, (state) => {
@@ -90,13 +107,12 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message;
+        state.error = action.payload?.message || "Login failed";
         console.log(state); // @todo remove
       })
       .addCase(getLoggedUser.pending, (state) => {
         state.loading = true;
         state.error = null;
-        // console.log(state); // @todo remove
       })
       .addCase(getLoggedUser.fulfilled, (state, action) => {
         state.loading = false;
@@ -112,6 +128,21 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
 
         sessionStorage.removeItem("user");
+      })
+      .addCase(logout.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.loading = false;
+        state.user = null;
+        state.isAuthenticated = false;
+
+        sessionStorage.clear();
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || "Logout action failed";
       });
   },
 });
@@ -120,5 +151,7 @@ export const selectUser = (state) => state.auth.user;
 export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
 export const selectLoading = (state) => state.auth.loading;
 export const selectError = (state) => state.auth.error;
+
+export const { clearError } = authSlice.actions;
 
 export default authSlice.reducer;

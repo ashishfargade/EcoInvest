@@ -3,7 +3,7 @@ const CustomLoader = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-300">
         <div className="text-center">
           <h2
-            className="text-2xl sm:text-3xl text-blue-700 font-orbitron typing-loader"
+            className="text-2xl sm:text-3xl text-slate-700 font-orbitron typing-loader"
           >
             Loading...
           </h2>

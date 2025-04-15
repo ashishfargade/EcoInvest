@@ -10,14 +10,14 @@ import { Signup } from "./components/Signup.jsx";
 import ProtectedRoutes from "./app/utils/ProtectedRoutes.jsx";
 import { Dashboard } from "./pages/Dashboard.jsx";
 import { getLoggedUser } from "./features/auth/authSlice.js";
+import Snackbar from "./components/Snackbar.jsx";
 
 function App() {
-
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(getLoggedUser());
-  }, [dispatch])
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
@@ -34,6 +34,9 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
       </Routes>
+
+      {/* Error display toast */}
+      <Snackbar />
     </BrowserRouter>
   );
 }
