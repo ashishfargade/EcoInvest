@@ -5,6 +5,7 @@ import { verifyJWT } from "../middleware/auth.middleware.js";
 import {
     addToPortfolio,
     removeFromPortfolio,
+    userPortfolioValue,
 } from "../controllers/portfolio.controller.js";
 
 const router = Router();
@@ -39,5 +40,7 @@ router
     );
 
 // router.route("/editTransactions").put()
+
+router.route("/getPortfolioValue").get(verifyJWT, userPortfolioValue);
 
 export default router;

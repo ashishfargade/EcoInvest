@@ -132,15 +132,19 @@ userSchema.methods.addBuyTransaction = async function (
     quantity,
     price
 ) {
+    quantity = Number(quantity);
+    price = Number(price);
+
     const portfolioItem = this.portfolio.find(
         (item) => item.ticker === ticker
     );
 
     if (portfolioItem) {
-        const totalCost =
-            portfolioItem.averageBuyPrice * portfolioItem.shares +
-            price * quantity;
-        const totalShares = portfolioItem.shares + quantity;
+        const currentShares = Number(portfolioItem.shares);
+        const currentAvgPrice = Number(portfolioItem.averageBuyPrice);
+
+        const totalCost = currentAvgPrice * currentShares + price * quantity;
+        const totalShares = currentShares + quantity;
 
         portfolioItem.averageBuyPrice = totalCost / totalShares;
         portfolioItem.shares = totalShares;
@@ -170,17 +174,22 @@ userSchema.methods.addBuyTransaction = async function (
     await this.save();
 };
 
-userSchema.methods.addSellTransaction = async function (ticker, quantity, price){
+userSchema.methods.addSellTransaction = async function (ticker, quantity, price) {
+    quantity = Number(quantity);
+    price = Number(price);
+
     const portfolioItem = this.portfolio.find(
         (item) => item.ticker === ticker
     );
 
-    if(!portfolioItem){
+    if (!portfolioItem) {
         throw new ApiError(404, `No shares of ${ticker} owned`);
     }
 
-    if (portfolioItem.shares < quantity) {
-        throw new ApiError(400, `You are trying to sell more shares than you own for ${ticker}}`);
+    const currentShares = Number(portfolioItem.shares);
+
+    if (currentShares < quantity) {
+        throw new ApiError(400, `You are trying to sell more shares than you own for ${ticker}`);
     }
 
     portfolioItem.sellHistory.push({
@@ -189,14 +198,14 @@ userSchema.methods.addSellTransaction = async function (ticker, quantity, price)
         date: new Date(),
     });
 
-    portfolioItem.shares -= quantity;
+    portfolioItem.shares = currentShares - quantity;
 
     // remove stock from portfolio if no shares left
-    if(portfolioItem.shares === 0){
-        this.portfolio = this.portfolio.filter(item => item.ticker !== ticker)
+    if (portfolioItem.shares === 0) {
+        this.portfolio = this.portfolio.filter(item => item.ticker !== ticker);
     }
 
-    await this.save()
-}
+    await this.save();
+};
 
 export const User = mongoose.model("User", userSchema);

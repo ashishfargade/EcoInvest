@@ -15,7 +15,7 @@ export const signup = createAsyncThunk(
     try {
       await axiosInstance.post("/user/register", { name, email, password });
       // nothing to return in this
-      console.log("Signup asyncThunk success"); // @todo - remove
+      // console.log("Signup asyncThunk success"); // @todo - remove
     } catch (err) {
       // err is already { status, message } from axios interceptor
       console.log("Error in signup async thunk: ", err.message); // @todo modify this
@@ -33,7 +33,7 @@ export const login = createAsyncThunk(
         password,
       });
 
-      console.log(response); // @todo remove
+      // console.log(response); // @todo remove
 
       return response.data.user;
       // return user
@@ -49,7 +49,7 @@ export const logout = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post("/user/logout");
-      console.log(response); // @todo remove
+      // console.log(response); // @todo remove
     } catch (err) {
       console.log("Error in logout async thunk:", err.message); // @todo modify this
       return rejectWithValue(err);
@@ -62,7 +62,7 @@ export const getLoggedUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get("/user/currentUser");
-      console.log(response);
+      // console.log(response);
       return response.data.user;
     } catch (err) {
       console.log("Error in getLoggedUser async thunk:", err.message); // @todo modify this
