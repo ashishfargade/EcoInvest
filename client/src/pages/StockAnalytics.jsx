@@ -64,11 +64,15 @@ export const StockAnalytics = () => {
   }, [analyticsData]);
 
   if (loading) {
-    return <CircularProgress />;
+    return (
+      <div className="text-center pt-20">
+        <CircularProgress />
+      </div>
+    );
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 pt-5 px-3 auto-rows-fr">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 pt-5 px-3 auto-rows-fr">
       {selectedTicker === "All" ? (
         listOfTickers.map((ticker) => (
           <ESGCard key={ticker} ticker={ticker} data={analyticsData[ticker]} />

@@ -5,3 +5,4 @@ export const refresh_token_secret = process.env.REFRESH_TOKEN_SECRET
 export const polygon_api_key = process.env.POLYGON_API_KEY
 export const client_origin = process.env.CLIENT_ORIGIN
 export const alphavantage_api_key = process.env.ALPHAVANTAGE_API_KEY
+export const gnews_api_key = process.env.GNEWS_API_KEY

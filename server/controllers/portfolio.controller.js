@@ -2,14 +2,21 @@ import axios from "axios";
 import dayjs from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter.js";
 dayjs.extend(isSameOrAfter);
+import { validationResult } from "express-validator";
 
 import { User } from "../models/user.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { AsyncHandler } from "../utils/AsyncHandler.js";
-import { polygon_api_key, alphavantage_api_key } from "../config.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import { polygon_api_key, alphavantage_api_key } from "../config.js";
 
 const addToPortfolio = AsyncHandler(async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        throw new ApiError(400, "Check all fields", errors.array());
+    }
+
     const userId = req.user._id;
     const { ticker, quantity, price } = req.body;
     const TICKER = ticker.toUpperCase();
@@ -47,6 +54,12 @@ const addToPortfolio = AsyncHandler(async (req, res) => {
 });
 
 const removeFromPortfolio = AsyncHandler(async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        throw new ApiError(400, "Check all fields", errors.array());
+    }
+
     const userId = req.user._id;
     const { ticker, quantity, price } = req.body;
     const TICKER = ticker.toUpperCase();

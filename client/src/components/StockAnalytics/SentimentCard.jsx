@@ -8,21 +8,21 @@ export const SentimentCard = ({ data }) => {
   const periods = Object.keys(sentiment.period || {});
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-5 shadow">
-      <h3 className="text-lg font-semibold text-blue-800 mb-4">
+    <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl px-1 py-5 shadow">
+      <h3 className="text-lg font-semibold text-blue-800 mb-4 pl-4">
         Analyst Sentiment
       </h3>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto pt-3">
         <table className="min-w-full text-sm text-left text-blue-900">
           <thead className="bg-blue-100 text-blue-800">
             <tr>
-              <th className="px-4 py-2">Period</th>
-              <th className="px-4 py-2">Buy</th>
-              <th className="px-4 py-2">Hold</th>
-              <th className="px-4 py-2">Sell</th>
-              <th className="px-4 py-2">Strong Buy</th>
-              <th className="px-4 py-2">Strong Sell</th>
+              <th className="px-2 py-2">Period</th>
+              <th className="px-2 py-2">Buy</th>
+              <th className="px-2 py-2">Hold</th>
+              <th className="px-2 py-2">Sell</th>
+              <th className="px-2 py-2 text-center">Strong Buy</th>
+              <th className="px-3 py-2 text-center">Strong Sell</th>
             </tr>
           </thead>
           <tbody>
@@ -34,13 +34,13 @@ export const SentimentCard = ({ data }) => {
                 <td className="px-4 py-2 font-medium">
                   {sentiment.period[key]}
                 </td>
-                <td className="px-4 py-2">{sentiment.buy[key]}</td>
-                <td className="px-4 py-2">{sentiment.hold[key]}</td>
-                <td className="px-4 py-2">{sentiment.sell[key]}</td>
-                <td className="px-4 py-2 text-green-600 font-semibold">
+                <td className="px-4 py-2 text-center">{sentiment.buy[key]}</td>
+                <td className="px-4 py-2 text-center">{sentiment.hold[key]}</td>
+                <td className="px-4 py-2 text-center">{sentiment.sell[key]}</td>
+                <td className="px-4 py-2 text-center text-green-600 font-semibold">
                   {sentiment.strongBuy[key]}
                 </td>
-                <td className="px-4 py-2 text-red-600 font-semibold">
+                <td className="px-4 py-2 text-center text-red-600 font-semibold">
                   {sentiment.strongSell[key]}
                 </td>
               </tr>

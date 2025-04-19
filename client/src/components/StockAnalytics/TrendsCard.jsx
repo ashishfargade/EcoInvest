@@ -3,41 +3,53 @@ import React from "react";
 export const TrendsCard = ({ data }) => {
   if (!data || !data.info) return null;
 
+  const info = data.info;
+
   return (
     <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-5 shadow">
-      <h3 className="text-lg font-semibold text-purple-800 mb-2">
-        Trend
+      <h3 className="text-lg font-semibold text-purple-800 mb-4">
+        Market & Stock Trends
       </h3>
-      <ul className="text-sm text-gray-700 space-y-1">
+
+      <ul className="text-sm text-gray-700 space-y-2">
         <li>
-          <strong>Sector:</strong> {data.info.sector}
+          <span className="font-medium text-purple-900">Sector:</span>{" "}
+          {info.sector}
         </li>
         <li>
-          <strong>Industry:</strong> {data.info.industry}
+          <span className="font-medium text-purple-900">Industry:</span>{" "}
+          {info.industry}
         </li>
         <li>
-          <strong>Current Price:</strong> {data.info.currentPrice}
+          <span className="font-medium text-purple-900">Current Price:</span> $
+          {info.currentPrice}
         </li>
         <li>
-          <strong>Fifty Day Average:</strong> {data.info.fiftyDayAverage}
+          <span className="font-medium text-purple-900">50-Day Avg:</span> $
+          {info.fiftyDayAverage}
         </li>
         <li>
-          <strong>Fifty Day Average Change:</strong> {data.info.fiftyDayAverageChange}
+          <span className="font-medium text-purple-900">50-Day Change:</span>{" "}
+          {info.fiftyDayAverageChange}
         </li>
         <li>
-          <strong>52W High:</strong> ${data.info.fiftyTwoWeekHigh}
+          <span className="font-medium text-purple-900">52-Week High:</span> $
+          {info.fiftyTwoWeekHigh}
         </li>
         <li>
-          <strong>52W Low:</strong> ${data.info.fiftyTwoWeekLow}
+          <span className="font-medium text-purple-900">52-Week Low:</span> $
+          {info.fiftyTwoWeekLow}
         </li>
         <li>
-          <strong>Beta:</strong> {data.info.beta}
+          <span className="font-medium text-purple-900">Beta:</span> {info.beta}
         </li>
         <li>
-          <strong>Book value:</strong> {data.info.bookValue}
+          <span className="font-medium text-purple-900">Book Value:</span> $
+          {info.bookValue}
         </li>
         <li>
-          <strong>Average Analyst Rating:</strong> {data.info.averageAnalystRating}
+          <span className="font-medium text-purple-900">Analyst Rating:</span>{" "}
+          <span className="font-extrabold">{info.averageAnalystRating}</span>
         </li>
       </ul>
     </div>

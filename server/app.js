@@ -22,8 +22,10 @@ app.use(cookieParser());
 // ROUTES
 import userRoutes from "./routes/user.routes.js";
 import portfolioRoutes from "./routes/portfolio.routes.js";
+import stockRoutes from "./routes/stock.routes.js"
 
 app.use("/user", userRoutes);
 app.use("/portfolio", portfolioRoutes);
+app.use("/stock", stockRoutes);
 
 export default app;

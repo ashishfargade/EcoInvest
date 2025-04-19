@@ -10,7 +10,7 @@ export const InternalNavbar = () => {
   const navItems = [
     { label: "Dashboard", path: "/dashboard" },
     { label: "Analysis", path: "/analytics" },
-    { label: "Trends", path: "/trends" },
+    { label: "News", path: "/news" },
   ];
 
   const handleLogout = () => {

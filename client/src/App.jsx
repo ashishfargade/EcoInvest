@@ -13,7 +13,7 @@ import { getLoggedUser } from "./features/auth/authSlice.js";
 import Snackbar from "./components/Snackbar.jsx";
 import { MainAppView } from "./pages/MainAppView.jsx";
 import { StockAnalytics } from "./pages/StockAnalytics.jsx";
-import { Trends } from "./pages/Trends.jsx";
+import { StockNews } from "./pages/StockNews.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ function App() {
           <Route element={<MainAppView />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/analytics" element={<StockAnalytics />} />
-            <Route path="/trends" element={<Trends />} />
+            <Route path="/news" element={<StockNews />} />
           </Route>
           
         </Route>

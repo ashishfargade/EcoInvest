@@ -2,13 +2,15 @@ import { Router } from "express";
 import { check } from "express-validator";
 
 import { verifyJWT } from "../middleware/auth.middleware.js";
+
+const router = Router();
+
+// Controllers
 import {
     addToPortfolio,
     removeFromPortfolio,
     userPortfolioValue,
 } from "../controllers/portfolio.controller.js";
-
-const router = Router();
 
 // Protected Routes
 router
@@ -17,9 +19,9 @@ router
         [
             verifyJWT,
             [
-                check("ticker", "ticker is required"),
-                check("price", "price per stock is required"),
-                check("quantity", "quantity required"),
+                check("ticker", "ticker is required").notEmpty(),
+                check("price", "price per stock is required").notEmpty(),
+                check("quantity", "quantity required").notEmpty(),
             ],
         ],
         addToPortfolio
@@ -31,9 +33,9 @@ router
         [
             verifyJWT,
             [
-                check("ticker", "ticker is required"),
-                check("price", "price per stock is required"),
-                check("quantity", "quantity required"),
+                check("ticker", "ticker is required").notEmpty(),
+                check("price", "price per stock is required").notEmpty(),
+                check("quantity", "quantity required").notEmpty(),
             ],
         ],
         removeFromPortfolio
