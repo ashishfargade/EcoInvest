@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Button, IconButton } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
+import CallMadeIcon from "@mui/icons-material/CallMade";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
 
@@ -75,10 +76,16 @@ export const InternalNavbar = () => {
               </button>
             );
           })}
+          <div className="text-gray-700 font-medium px-4 hover:text-blue-700">
+            <button onClick={() => {
+              window.open('https://huggingface.co/spaces/Samved24/EcoInvest', '_blank', 'noopener,noreferrer');
+            }}>ESG Research</button>
+          </div>
         </div>
       </div>
 
       {/* Right Toggle */}
+
       <div className="flex items-center gap-3 relative z-10">
         <Box sx={{ display: "flex", gap: 2 }}>
           <IconButton

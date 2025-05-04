@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { CircularProgress } from "@mui/material";
 
 import axiosInstance from "../app/api/axiosInstance.js";
 import { StockNewsCard } from "../components/StockNews/StockNewsCard.jsx";
-import CustomLoader from "../components/CustomLoader.jsx";
-import { CircularProgress } from "@mui/material";
 
 export const StockNews = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -33,6 +32,33 @@ export const StockNews = () => {
       setLoading(false);
     }
   };
+
+  // Default Market News
+  useEffect(() => {
+    const fetchMarketNews = async () => {
+      setLoading(true);
+
+      try {
+        const response = await axiosInstance.get("/stock/getMarketNews");
+
+        // console.log(response);
+
+        const articles = (response?.data || []).map((item) => ({
+          ...item,
+          image: item.urlToImage, //remap to match expected card props
+        }));
+        setNewsList(articles);
+
+      } catch (err) {
+        console.error("Error loading default news:", err);
+        setNewsList([]);
+      }finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMarketNews();
+  }, []);
 
   return (
     <div className="w-full px-4 pt-4">
