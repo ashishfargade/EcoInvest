@@ -31,6 +31,19 @@ This project was developed and tested with the following environment:
 ### Backend (Flask) dependencies:
 * yfinance
 
+## APIs Used
+
+**Stock Time Series Data / Ticker Prices:**
+- [Alpha Vantage](https://www.alphavantage.co/)
+- [Polygon](https://polygon.io/)
+
+**News Sources:**
+- [GNews](https://gnews.io/)
+- [NewsAPI](https://newsapi.org/)
+
+**Web Scraping & Financial Data:**
+- [Yahoo Finance (via yfinance)](https://pypi.org/project/yfinance/)
+
 ## Run locally
 * Clone the project and open the folder
 * Create a .env file (in server folder) and populate it with env variables, you can find variables required in config.js
